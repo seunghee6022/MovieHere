@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+{% if request.resolver_match.url_name == 'movie_update' %}
+<h3 class="white"> 영화 수정하기</h3>
+<a  class="btn btn-secondary"  href="{% url 'movies:index' %}">BACK</a>
+<form class="white" action="" method="POST">
+
+{% else %}
+<h3 class="white">영화 등록하기</h3>
+<a class="btn btn-secondary"  href="{% url 'movies:index' %}">BACK</a>
+<form class="white" action="" method="POST">
+{% endif %}
+
+{%csrf_token%}
+{% bootstrap_form form %}
+<button class="btn btn-primary">SUMBIT</button>
+</form>
+
+{% endblock %}

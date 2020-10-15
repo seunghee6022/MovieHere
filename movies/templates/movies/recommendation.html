@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div style="color:white">
+<div style="height:150px;">
+<h3 class="mt-5 text-center">{{request.user}}님 골라골라, MovieHere가 영화 추천 잘 해줄게~</h3>
+</div>
+<hr/>
+
+</div>
+
+<div class='d-flex flex-column align-items-center'>
+    {% if message %}     
+        <h5 class='text-center' style="color:red">{{ message }}</h5>
+        <p class='text-center' style="color:white">리뷰 3개 이상을 작성하시면 취향저격 추천을 받을 수 있습니다 ^_^</p>
+    {% endif %}
+    <div class='mt-5'>
+        <a class="btn btn-light btn-lg b-white" href="{% url 'movies:taste' %}" style="line-height:14vw; height:20vw; width: 35vw;  font-size: 3vw;">취향 저격</a>
+        <a class="btn btn-light btn-lg b-white" href="{% url 'movies:movieherechoice' %}" style="line-height:8vw; height:20vw; width: 35vw;  font-size: 3vw;">MovieHere 한번 믿어볼래?</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<h3>Admin Page</h3>
+<h4>{{ request.user.username}}님께 요청된 영화목록</h4>
+
+
+<div class="flex-column" style='color:white'>
+<a class="m-1 btn btn-secondary" href="{% url 'movies:index' %}">Home</a>
+
+<hr/>
+<div >
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"><p style='color:white'>#</p></th>
+        <th scope="col">MOVIE ID</th>
+        <th scope="col">MOVIE TITLE</th>
+        <th scope="col">MOVIE ORIGINAL TITLE</th>
+        <th scope="col">REQUEST USER</th>
+   
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for movie in page_obj %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td><p>style='color:white'>{{movie.movie_pk}}</p></td>
+        <td><p style='color:white'>{{movie.movie_title}}</p></td>
+        <td><p style='color:white'>{{movie.movie_original_title}}</p></td>
+        <td><p style='color:white'>{{movie.movie_requestuser}}</p></td>
+      
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+  <hr/>
+  </div>
+  </div>
+ <div class="d-flex justify-content-center">
+
+        {% bootstrap_paginate page_obj range=5 show_prev_next="false" show_first_last="true" %}
+
+    </div>
+{% endblock %}

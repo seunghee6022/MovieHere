@@ -1,0 +1,5 @@
+.movie-poster {
+    position: absolute;
+    height: 100%;
+    width: inherit;
+}

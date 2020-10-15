@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load bootstrap_pagination %}
+{% load bootstrap4 %}
+
+{% block style %}
+<style>
+.h {
+
+    justify-content : center;
+    display : flex;
+    text-align : center;
+    margin : 2px;
+    height: 2rem;
+    padding : 0;
+}
+</style>
+{% endblock %}
+
+{% block searchbar %}
+ <!-- 영화 검색 -->
+ <div class='d-flex justify-content-center' style="margin-bottom: 20px;">
+
+   <form action="{% url 'movies:search' %}" style="width: 100%; text-align: center;">
+    <input class='d-inline mx-auto'  name='searchingword' type='text' placeholder='보고싶은 영화를 검색해보세요' autofocus style="width: 60%; height: 38px; color:black;">
+    <button class='btn btn-danger mx-2 d-inline-right'>검색</button>
+   </form>
+  </div>
+
+
+{% endblock %}
+
+{% block content%}
+<h2 class="text-center my-5" style="color:white">현재 상영작</h2>
+{% if request.user.is_superuser %}
+  <div>
+      <a href="{% url 'movies:movie_create' %}" class="mr-2"><button type="button" class="btn btn-primary">등록</button></a>
+  </div>
+{% endif %}
+<div class="row row-cols-1 row-cols-md-3">
+    {% for movie in nowplaying_page_obj %}
+
+    <div class="col mb-4">
+        <div class="card b-white">
+            <a href="{% url 'movies:detail' movie.pk %}">
+                <img src="https://image.tmdb.org/t/p/w342{{movie.poster_path}}" onmouseover="this.style.opacity='0.5'" onmouseout="this.style.opacity='1'" class="card-img-top" style="height: 30rem;">
+            </a>
+            <div class="card-body">
+            <h5 class="card-title text-center" style="text-overflow: ellipsis; word-wrap: normal; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color:white ">
+                <span>{{movie.title}}</span>(<span>{{movie.original_title}}</span>)
+            </h5>
+            <p class='d-flex justify-content-center'>
+             <span class="badge badge-success">평점 : {{movie.vote_average}}</span>
+             <span class="badge badge-warning">인기지수 : {{movie.popularity}}</span>
+
+               {% if movie.adult %}
+              <span class="badge badge-secondary">{{movie.original_language}}</span>
+              <span class="badge badge-danger">19</span>
+              {% else %}
+             <span class="badge badge-secondary">{{movie.original_language}}</span>
+
+              {% endif %}
+
+            </p>
+             <p class='d-flex justify-content-center' style="text-overflow: ellipsis; word-wrap: normal; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; ">
+                {%if movie.genres.all %}
+                    {% for genre in movie.genres.all %}
+                    
+                    <span class="badge badge-dark">{{genre.name}}</span>
+                    {% endfor %}
+              {% else %}
+              <span class="badge badge-dark">x</span>
+              {% endif %}
+                 </p>
+            <hr/>
+
+            <p class="card-text">
+                <ul class="d-flex flex-column p-0">
+                <span style='color:white'>
+                      | 개봉일 : {{movie.release_date}} |
+                      투표 {{movie.vote_count}}명|
+
+                    <p class='d-flex justify-content-center'>
+                    {% if user in movie.like_users.all %}
+                        <i class="fas fa-heart fa-lg like-btn" data-pk="{{ movie.pk }}" style="color:crimson"></i>
+                    {% else %}
+                        <i class="fas fa-heart fa-lg like-btn" data-pk="{{ movie.pk }}" style="color:black"></i>
+                    {% endif %}
+                    <span class='cnt-{{movie.pk}}'>{{ movie.like_users.all|length }}</span>명
+
+                   <hr>
+                  </span>
+                <a href="{% url 'movies:review_list' movie.pk %}" class="btn btn-dark h" role="button" aria-pressed="true">리뷰 게시판 바로가기</a>
+                
+                {% if request.user.is_superuser %}
+                <div class='d-flex justify-content-center'>
+                    <a href="{% url 'movies:movie_update' movie.pk %}" class="mr-2"><button type="button" class="btn btn-primary">수정</button></a>
+                    <a href="{% url 'movies:movie_delete' movie.pk %}" class="mr-2"><button type="button" class="btn btn-danger">삭제</button></a>
+                </div>
+                {% endif %}
+
+
+                </ul>
+                </p>
+            </div>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="d-flex justify-content-center">
+
+        {% bootstrap_paginate nowplaying_page_obj range=5 show_prev_next="false" show_first_last="true" %}
+
+    </div>
+
+
+<script>
+const likeBtns = document.querySelectorAll('.like-btn')
+likeBtns.forEach(function(btn){
+    btn.addEventListener('click', function(event){
+    console.log(`${btn.dataset.pk}번 버튼이 눌렸습니다.`)
+    axios.get(`/movies/${btn.dataset.pk}/like/`)
+    .then(function(res){
+
+        if (res.data.liked) {
+        btn.style.color = 'crimson'
+        }
+        else {
+        btn.style.color = 'black'
+        }
+        const cntSpan = document.querySelector(`.cnt-${btn.dataset.pk}`)
+        cntSpan.innerText = res.data.count
+    })
+    .catch(function(err){
+        console.log(err)
+    })
+    })
+})
+
+
+
+
+</script>
+
+
+
+
+{% endblock %}

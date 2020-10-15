@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div class='container text-center' style='color:white'>
+<h3 class="b-white p-2">{{request.user}}님 취향 분석 결과</h3>
+<hr class="hr-white"/>
+
+    <h5>
+     장르 선호도:
+    1위 : <span class="badge badge-danger">{{1st_genre}}</span>
+    2위 : <span class="badge badge-danger">{{2nd_genre}}</span>
+    3위 : <span class="badge badge-danger">{{3rd_genre}}</span>
+    </h5>
+
+<hr class="hr-white"/>
+
+<h4 class='text-center m-4 b-white'>이런 영화 어떠세요 : ) ?</h4>
+<div class="row m-auto p-auto w-100">
+    {% for recommendation in recommendations %}
+    <div class="d-flex flex-column m-auto">
+    <img src="https://image.tmdb.org/t/p/w342{{recommendation.poster_path}}" class="card-img-top " style='height:400px'>
+    <p class='d-flex justify-content-center my-1'>
+     <span class="badge badge-success">평점 : {{recommendation.vote_average}}</span>
+     <span class="badge badge-warning">인기지수 : {{recommendation.popularity}}</span>
+     <span class="badge badge-secondary">{{recommendation.original_language}}</span>
+    </p>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-dark my-1 w-100" data-toggle="modal" data-target="#md-{{ recommendation.pk }}">
+        <p>{{recommendation.title}}</p>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="md-{{ recommendation.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title black" id="exampleModalLabel">{{recommendation.title}}({{recommendation.original_title}})</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://image.tmdb.org/t/p/w342{{recommendation.backdrop_path}}" class="card-img-top m-1" style='height:400px'>
+                    <hr class="hr-white"/>
+                    <p class="black">
+
+                    {{recommendation.overview}}
+                    </p>
+
+
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'movies:detail' recommendation.pk %}" class="btn btn-dark h" role="button" aria-pressed="true">상세 보기</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+    {% endfor %}
+</div>
+
+<hr class="hr-white"/>
+<h3 class="b-white">{{request.user}}님이 작성한 리뷰의 영화들</h3>
+    {% for review in reviews %}
+    <ul>
+        <a href="{% url 'movies:review_detail' review.movie.pk  review.pk %}" >{{review.title}}</a> |
+         <a href="{% url 'movies:detail' review.movie.pk %}" class="btn btn-dark h" role="button" aria-pressed="true">{{review.movie.title}}</a>
+    </ul>
+
+
+    {% endfor %}
+<hr class="hr-white"/>
+<h3 class="b-white">{{request.user}}님이 좋아요 누른 영화들</h3>
+<div class="row m-auto p-auto w-100">
+    {% for movie in you_liked_movies %}
+    <div class="d-flex flex-column m-auto">
+    <img src="https://image.tmdb.org/t/p/w342{{movie.poster_path}}" class="card-img-top " style='height:400px'>
+    <p class='d-flex justify-content-center my-1'>
+     <span class="badge badge-success">평점 : {{movie.vote_average}}</span>
+     <span class="badge badge-warning">인기지수 : {{movie.popularity}}</span>
+     <span class="badge badge-secondary">{{movie.original_language}}</span>
+    </p>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-dark my-1 w-100" data-toggle="modal" data-target="#md-{{ movie.pk }}">
+        <p>{{movie.title}}</p>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="md-{{ movie.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title black" id="exampleModalLabel">{{movie.title}}({{movie.original_title}})</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://image.tmdb.org/t/p/w342{{movie.backdrop_path}}" class="card-img-top m-1" style='height:400px'>
+                    <hr class="hr-white"/>
+                    <p class="black">
+
+                    {{movie.overview}}
+                    </p>
+
+
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'movies:detail' movie.pk %}" class="btn btn-dark h" role="button" aria-pressed="true">상세 보기</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

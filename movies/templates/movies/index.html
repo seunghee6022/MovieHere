@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+<div style="background-image: url('https://i.pinimg.com/originals/01/38/47/013847e254bee2b33d4996894e9933fe.jpg');"
+></div>
+
+{% block content%}
+<div class="text-center flex-column justify-content-center text-aglin-center m-5 " style="color:white; height:600px;">
+  <br>
+  <br>
+  <br>
+ <h1 class="text-center" >MovieHere</h1>
+ <!-- 영화 검색 -->
+  <div class='d-flex justify-content-center my-5' style="margin-bottom: 20px;">
+
+   <form action="{% url 'movies:search' %}" style="width: 100%; text-align: center;">
+    <input class='d-inline mx-auto'  name='searchingword' type='text' placeholder='보고싶은 영화를 검색해보세요' autofocus style="width: 60%; height: 38px; color:black;">
+    <button class='btn btn-danger mx-2 d-inline-right'>검색</button>
+   </form>
+  <!--</div>-->
+  <!--<h5>다양한 영화들을 검색하고, 커뮤니티에서 소통해보세요.</h5>-->
+  <!--<br>-->
+  <!--<h5>취향을 저격한 영화 추천 서비스를 제공합니다.</h5>-->
+  <!--<br>-->
+
+<!--<p class='m-3'>-->
+<!--    {% if user.is_authenticated %}-->
+<!--    <a href="{% url 'movies:recommendation' %}" class="btn btn-danger btn-lg active text-center" role="button" aria-pressed="true">{{request.user}}님에게 맞는 영화추천 보러가기</a>-->
+<!--    {% else %}-->
+<!--    <a href="{% url 'accounts:login' %}" class="btn btn-danger btn-lg active text-center" role="button" aria-pressed="true">로그인하고 영화추천 보러가기</a>-->
+<!--    {% endif %}-->
+<!--</p>-->
+</div>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block style %}
+<style>
+.h {
+    width : 50%;
+    justify-content : center;
+
+    text-align : center;
+
+    height: 2rem;
+    padding : 0;
+}
+</style>
+{% endblock %}
+
+{% block searchbar %}
+ <!-- 영화 검색 -->
+   <div class='d-flex justify-content-center' style="margin-bottom: 20px;">
+
+   <form action="{% url 'movies:search' %}" style="width: 100%; text-align: center;">
+    <input class='d-inline mx-auto'  name='searchingword' type='text' placeholder='보고싶은 영화를 검색해보세요' autofocus style="width: 60%; height: 38px; color:black;">
+    <button class='btn btn-danger mx-2 d-inline-right'>검색</button>
+   </form>
+  </div>
+
+
+{% endblock %}
+
+{% block content %}
+<!-- youtube api key -->
+<div id="YOUTUBE_SECRET_KEY_API" data-key="{{API_KEY}}"></div>
+
+<div class='text-center' style='color:white'>
+    <h4><span>{{movie.title}}</span>(<span id="original-title">{{movie.original_title}}</span>) </h4>
+        <h5 id="movie-trailer-title"></h5>
+      <div class="col-lg-8 mx-auto">
+        <div class="embed-responsive embed-responsive-16by9">
+        <iframe id="videoframe" class="embed-responsive-item"
+        allowfullscreen>
+        </iframe>
+
+      </div>
+
+      <div class="m-3 d-flex flex-column" style='font-size:15px'>
+
+       <p>{{movie.overview}}</p>
+
+        <hr>
+
+      <span>
+      {% if movie in movies %}
+      <a class="btn btn-warning m-2" href="{% url 'movies:review_list' movie.pk %}">게시판 바로가기</a>
+
+      {% else %}
+      <a class="btn btn-warning m-2" href="#">영화 등록 요청하기</a>
+
+      {% endif %}
+        </span>
+        <hr class="hr-white">
+        <span>
+       <div class="d-flex justify-content-center text-align-center">
+          <a class="btn btn-secondary m-2" href="{% url 'movies:top_ranked'%}">탑랭킹</a>
+
+          <a class="btn btn-secondary m-2" href="{% url 'movies:popular' %}">인기</a>
+
+          <a class="btn btn-secondary m-2" href="{% url 'movies:nowplaying'  %}">현재상영</a>
+
+            <a class="btn btn-secondary m-2" href="{% url 'movies:upcoming'  %}">상영예정</a>
+        </div>
+      </span>
+      </div>
+
+  </div>
+
+
+<script>
+const likeBtns = document.querySelectorAll('.like-btn')
+likeBtns.forEach(function(btn){
+    btn.addEventListener('click', function(event){
+    console.log(`${btn.dataset.pk}번 버튼이 눌렸습니다.`)
+    axios.get(`/movies/${btn.dataset.pk}/like/`)
+    .then(function(res){
+
+        if (res.data.liked) {
+        btn.style.color = 'crimson'
+        }
+        else {
+        btn.style.color = 'black'
+        }
+        const cntSpan = document.querySelector(`.cnt-${btn.dataset.pk}`)
+        cntSpan.innerText = res.data.count
+    })
+    .catch(function(err){
+        console.log(err)
+    })
+    })
+})
+
+  const movie_title = document.getElementById('original-title').innerText
+  const API_URL = 'https://www.googleapis.com/youtube/v3/search'
+  const API_KEY_LOC = document.getElementById('YOUTUBE_SECRET_KEY_API')
+  const API_KEY = `${API_KEY_LOC.dataset.key}`
+  console.log(API_KEY)
+
+  axios.get(API_URL,{
+      params:{
+      key: API_KEY ,
+      part : 'snippet',
+      type : 'video',
+      q : movie_title +' trailer',
+      }
+  })
+ .then(res =>{
+     res.data.items.forEach(item=>{
+         const parser = new DOMParser()
+         const doc = parser.parseFromString(item.snippet.title, 'text/html')
+         item.snippet.title = doc.body.innerText
+     })
+
+
+     const video = res.data.items[0]
+     console.log(document.getElementById("videoframe").src)
+     document.getElementById("movie-trailer-title").innerHTML=`${video.snippet.title}`
+     document.getElementById("videoframe").src = `https://youtube.com/embed/${video.id.videoId}`
+ })
+ .catch(err => console.error(err.response))
+
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block style %}
+<style>
+    a.withWho :hover {
+        background-color : red;
+    }
+    .withWhom, .feeling{
+        border : 1px solid white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class='text-center white'>
+    <h3 class="b-white my-5" >한번 골라봐~ 다 추천해줄게</h3>
+    <hr>
+
+    <h5>누구와 함께 보나요?</h5>
+    <div class="d-flex justify-content-around">
+    <button id ="whom_solo" class="btn  m-2 withWhom w-25 b-white " >빛이나는 홀로</button>
+    <button id ="whom_family" class="btn  m-2 withWhom w-25 b-white  ">가족끼리</button>
+    <button id ="whom_sibling" class="btn  m-2 withWhom w-25 b-white ">남매끼리</button>
+    <button id ="whom_ssum" class="btn m-2 withWhom w-25 b-white ">썸남/썸녀/연인</button>
+    <button id ="whom_friends" class="btn  m-2 withWhom w-25 b-white  ">친구끼리</button>
+    <button id ="whom_coworker" class="btn  m-2 withWhom w-25 b-white  ">직장 동료</button>
+    </div>
+    <hr>
+    <h5>오늘 무드는 어때요?</h5>
+    <div class="d-flex justify-content-around">
+    <button id="feeling_love" class="btn  feeling w-25 b-white mood" >사랑할때</button>
+    <button id="feeling_broken" class="btn feeling w-25 b-white mood" >사랑했을때</button>
+    <button id="feeling_angry" class="btn  feeling w-25 b-white mood">화났을때</button>
+    <button id="feeling_imagine" class="btn   feeling w-25 b-white mood">상상력 넘칠 때</button>
+    <button id="feeling_mung" class="btn  feeling w-25 b-white mood" >멍때릴때</button>
+    <button id="feeling_healing" class="btn  feeling w-25 b-white mood">힐링할때</button>
+    <button id="feeling_groomy" class="btn  feeling w-25 b-white mood" >우울 할 때</button>
+    <button id="feeling_scary" class="btn  feeling w-25 b-white mood" >오싹 오싹 할 때</button>
+    <button id="feeling_action" class="btn  feeling w-25 b-white mood" >액션 땡길 때</button>
+    </div>
+
+    <hr>
+    <!--<h2>오늘 하루를 돌아봤을 때, 삶이란?</h2>-->
+    <!--<div class="d-flex flex-column">-->
+
+    <!--코미디-->
+    <!--<button id="life_egg" class="btn btn-secondary m-2 life w-100" >Life is egg</button>-->
+    <!--감동-->
+    <!--<button id="life_nothink" class="btn btn-secondary m-2 life w-100" >생각해본적이...</button>-->
+    <!--솔로, 액션, 판타지-->
+    <!--<button id="life_alone" class="btn btn-secondary m-2 life w-100" >독고다이</button>-->
+    <!--행복 , 로맨스, 드라마-->
+    <!--<button id="life_poem" class="btn btn-secondary m-2 life w-100" >아름다운 한편의 시와도 같다 </button>-->
+    <!--토너먼트 바로 시켜버리기-->
+    <!--<button id="life_choice" class="btn btn-secondary m-2 life w-100" >선택의 연속</button>-->
+    <!--액션, 스릴러 랜덤 추천-->
+    <!--<button id="life_hard" class="btn btn-secondary m-2 life w-100" >안그래도 힘든데 MovieHere너마저 왜이러냐</button>-->
+
+
+    <!--</div>-->
+     <div>
+         <a id="goRecommend" class="btn btn-danger m-2 w-50" href="###">추천받기!!!</a>
+
+        <!--<button id="goRecommend" class="btn btn-primary">Recommend!</button>-->
+    </div>
+
+</div>
+
+
+
+<script>
+let withCnt = 0
+let feelingCnt = 0
+// let lifecnt = 0
+console.log(withCnt,feelingCnt)
+const withWhomBtns = document.querySelectorAll('.withWhom')
+const feelingBtns = document.querySelectorAll('.feeling')
+// const lifeBtns = document.querySelectorAll('.life')
+
+let chooseWhom = ''
+let chooseFeeling =  ''
+// let chooseLife = ''
+
+withWhomBtns.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+        console.log(btn.textContent,btn.id)
+        e.preventDefault()
+        const btnClasses1 = btn.classList
+        chooseWhom = btn.id
+        console.log(chooseWhom)
+
+        if (btn.className.includes('b-white')) {
+            if (withCnt == 1) {
+                alert('1개만 골라주세요.')
+            } else {
+                btnClasses1.remove('b-white')
+                btnClasses1.add('btn-light')
+
+                withCnt += 1
+
+            }
+        } else {
+            btnClasses1.remove('btn-light')
+            btnClasses1.add('b-white')
+            withCnt -= 1
+            chooseWhom = ''
+
+        }
+        console.log(withCnt,feelingCnt)
+    })
+})
+
+feelingBtns.forEach(function(btn){
+
+    btn.addEventListener('click', function(e){
+        console.log(btn)
+        e.preventDefault()
+        const btnClasses2 = btn.classList
+        chooseFeeling = btn.id
+
+        if (btn.className.includes('b-white')) {
+            if (feelingCnt == 1) {
+                alert('1개만 골라주세요.')
+            } else {
+                btnClasses2.remove('b-white')
+                btnClasses2.add('btn-light')
+                feelingCnt += 1
+
+            }
+        } else {
+            btnClasses2.remove('btn-light')
+            btnClasses2.add('b-white')
+            feelingCnt -= 1
+            chooseFeeling =  ''
+
+        }
+        console.log(withCnt,feelingCnt)
+
+    })
+})
+
+// lifeBtns.forEach(function(btn){
+
+//     btn.addEventListener('click', function(e){
+//         console.log(btn.id)
+//         e.preventDefault()
+//         const btnClasses3 = btn.classList
+//         chooseLife = btn.id
+
+//         if (btn.className.includes('btn-secondary')) {
+//             if (lifecnt == 1) {
+//                 alert('1개만 골라주세요.')
+//             } else {
+//                 btnClasses3.remove('btn-secondary')
+//                 btnClasses3.add('btn-success')
+//                 lifecnt += 1
+
+//             }
+//         } else {
+//             btnClasses3.remove('btn-success')
+//             btnClasses3.add('btn-secondary')
+//             lifecnt -= 1
+//             chooseLife = ''
+
+//         }
+//         console.log(withCnt,feelingCnt,lifecnt)
+
+//         if (withCnt == 1 && feelingCnt == 1 && lifecnt == 1 ) {
+
+//         console.log(chooseWhom,chooseFeeling,chooseLife)
+
+//  }
+
+//     })
+// })
+
+const goRecommend = document.querySelector('#goRecommend')
+goRecommend.addEventListener('click', function(e){
+    e.preventDefault()
+
+    // if (withCnt == 1 && feelingCnt == 1 && lifecnt == 1 ) {
+    if (withCnt == 1 && feelingCnt == 1) {
+
+            data  = [
+                 chooseWhom,
+                 chooseFeeling
+
+            ]
+            data = data.join(",")
+            var date = new Date();
+            date.setTime(date.getTime() + 1 * 60 * 60 * 1 * 1000) // 1시간 쿠키 저장
+            document.cookie = 'data' + '=' + data +';expires=' + date.toUTCString() + ';path=/';
+            window.location.href = "/movies/moviehereresult/";
+    }
+    else {
+        alert('혹시 선택안한 질문이 있나요?')
+    }
+
+        })
+
+</script>
+
+
+{% endblock %}
