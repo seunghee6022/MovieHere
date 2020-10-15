@@ -1,35 +1,48 @@
 # MovieHere
+
 Movie website offering recommendation service as well as basic movie search, detail info with trailer video by youtube
 
 ### Service
+
 1. movie recommendation service
-  - MovieHere recommendation 
-    -Depending on the situation(mood) and people group (e.g. family, couple, friends..), we suggest many combination of situation and user can choose. 
-    -e.g. happy with friends, watching couple in the mood, sad after breaking up, bright mood with whole family, groomy alone and so on. 
-    
+
+* MovieHere recommendation 
+  * Depending on the situation(mood) and people group (e.g. family, couple, friends..), we suggest many combination of situation and user can choose. 
+  * e.g. happy with friends, watching couple in the mood, sad after breaking up, bright mood with whole family, groomy alone and so on. 
+
   - Recommendation by my movie genre preferance
-    -Depending on the users' likes, calculating the genre of liked movies and recommending same top 3 genres' movies by high popularuty and rank order.
-    
- 2. Basic Movie Borad Service
+    * Depending on the users' likes, calculating the genre of liked movies and recommending same top 3 genres' movies by high popularuty and rank order.
+
+  2. Basic Movie Borad Service
+
   - Movie searching
   - Movie category
-    : popular, high rank, incoming, now playing
+    * popular
+    * high rank
+    * incoming
+    * now playing
   - Movie detail and youtube trailer 
   - Movie likes
   - User follow
   - Write reviews & comments & likes to the review
   - Mypage
-    -checking followers, following, my reviews, my liked movies
-    
+    * checking followers
+    * following
+    * my reviews
+    * my liked movies
+
 ### Tech stack
--Frontend : Django
--Backend : Django
+
+* Frontend : Django
+* Backend : Django
 
 ### Role
--Seunghee Jeong : Fullstack
--Sungjung Kim : Frontend
+
+* Seunghee Jeong : Fullstack
+* Sungjung Kim : Frontend
 
 ### Project term
+
 06.07.2020 ~ 10.07.2020(5days)
 
 
@@ -85,14 +98,14 @@ Movie website offering recommendation service as well as basic movie search, det
 1. 기본적으로 팀은 2인으로 구성되며, 부득이한 경우 담당 교수의 안내를 받아 3인으로 구성하여 진행합니다.
 
 2. 프로젝트 수행은 6월 18일(목) 까지이며, UCC 제출 기한은 06월 17일(수) 23:59, 프로젝트 발표는 06월 19일
-  (금)에 운영 프로 및 담당 교수의 안내에 따라 진행합니다.
-  최종 프로젝트 기한을 넘어가는 경우 불이익이 있으니 반드시 마감 기한을 지켜주세요.
+   (금)에 운영 프로 및 담당 교수의 안내에 따라 진행합니다.
+   최종 프로젝트 기한을 넘어가는 경우 불이익이 있으니 반드시 마감 기한을 지켜주세요.
 
 3. 프로젝트를 진행하는 모든 팀은 09:30 ~ 18:00까지 반드시 프로젝트를 진행해야 합니다.
-  09:30~10:00와 17:30~18:00은 프로젝트 진행 내용을 확인하는 팀 내부 회의 시간입니다.
-  10:00 ~ 17:30까지 점심 및 휴게시간을 제외하고는 모두 팀별 개발을 진행합니다.
-  부득이한 사정으로 프로젝트를 수행하지 못하는 경우 반드시 지역별 담당 프로 및 교수에게 사전 공지를 해
-  야 합니다.
+   09:30~10:00와 17:30~18:00은 프로젝트 진행 내용을 확인하는 팀 내부 회의 시간입니다.
+   10:00 ~ 17:30까지 점심 및 휴게시간을 제외하고는 모두 팀별 개발을 진행합니다.
+   부득이한 사정으로 프로젝트를 수행하지 못하는 경우 반드시 지역별 담당 프로 및 교수에게 사전 공지를 해
+   야 합니다.
 
 4. 해당 일정은 내부 사정에 따라 일부 변경될 수 있습니다.
 
@@ -106,22 +119,22 @@ Movie website offering recommendation service as well as basic movie search, det
 
 1. 본 프로젝트는 '영화'를 주제로 진행되기 때문에, 영화 데이터베이스를 필수적으로 가지고 있어야 합니다.
 
-  * 데이터를 수집하는 방법은 각 팀별로 제한없이 자유롭게 진행합니다.
-  * 영화 데이터 수집 예시는 다음과 같습니다.
-    * 영화 진흥 위원회
-    * 네이버 검색 API(영화)
-    * The Movie Database(TMDb)
-  * 최초에 각 팀 별로 등록된 영화 레코드(record)는 최소 50개 이상을 유지해야 합니다.
+   * 데이터를 수집하는 방법은 각 팀별로 제한없이 자유롭게 진행합니다.
+   * 영화 데이터 수집 예시는 다음과 같습니다.
+     * 영화 진흥 위원회
+     * 네이버 검색 API(영화)
+     * The Movie Database(TMDb)
+   * 최초에 각 팀 별로 등록된 영화 레코드(record)는 최소 50개 이상을 유지해야 합니다.
 
 2. 모바일 대응을 위한 반응형 웹, Django REST API 서버 및 프론트엔드 프레임워크(Vue.js) 분리 등의 상세 구현
-  방식은 자유롭게 구성하되, 프로젝트 `README.md` 상단에 프로젝트 구조에 대한 설명을 반드시 명시해야 합니
-  다.
+   방식은 자유롭게 구성하되, 프로젝트 `README.md` 상단에 프로젝트 구조에 대한 설명을 반드시 명시해야 합니
+   다.
 
 3. 영화 커뮤니티에 필요한 기능을 구성하여야 합니다.
 
 4. 사용자에게 제공되는 영화 추천 방식은 자유롭게 구성하되 해당 서비스를 이용하는 사용자는 반드시 영화를 추
-  천 받을 수 있어야 합니다.
-  예시 - 추천 알고리즘 활용, 다양한 추가 데이터를 활용한 형식의 추천, 날씨에 따른 장르 추천 등
+   천 받을 수 있어야 합니다.
+   예시 - 추천 알고리즘 활용, 다양한 추가 데이터를 활용한 형식의 추천, 날씨에 따른 장르 추천 등
 
 5. 최소한의 HTML/CSS를 통한 웹 사이트 디자인을 해야합니다.
 
@@ -187,18 +200,18 @@ __edussafy 업로드__
 1. 사전 안내된 UCC, 슬라이드를 포함한 자료를 수요일 23:59까지 제출합니다.
 
 2. 자세한 안내는 edussafy를 참고 바랍니다.
-  소스코드
+   소스코드
 
 3. 완성된 소스코드의 Gitlab 주소를 담당 교수님께 제출합니다.
 
 4. 해당 Gitlab 저장소의 최상단에는 반드시 README.md 이 있어야 하며 아래의 내용이 기록되어 있어야 합니다.
 
-  * 팀원 정보 및 업무 분담 내역
-  * 목표 서비스 구현 및 실제 구현 정도
-  * 데이터베이스 모델링(ERD)
-  * 필수 기능
-  * 배포 서버 URL
-  * 기타(느낀점)
+   * 팀원 정보 및 업무 분담 내역
+   * 목표 서비스 구현 및 실제 구현 정도
+   * 데이터베이스 모델링(ERD)
+   * 필수 기능
+   * 배포 서버 URL
+   * 기타(느낀점)
 
 5. 추후 지역별 담당 교수의 안내에 따라 추가적인 자료 제출이 요구될 수 있습니다.
 
